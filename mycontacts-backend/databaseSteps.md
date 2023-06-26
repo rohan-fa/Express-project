@@ -63,6 +63,67 @@ as we said if there is no name email or phone through an error and if there is t
 });
 ```
 So its working 
-### so lets get individual contact
+### so lets get individual contact: 
+if we want to get individual contact? then we can just use findById.
+```
+const getContact = asyncHandler(async (req, res) =>{
+    const contact = await Contact.findById(req.param.id);   //if we cannot find any Id we will through an Error
+    if(!contact){
+        res.status(404);
+        throw new Error("Contact not found");
+    }
+    res.status(200).json(contact);
+});
+```
+now let go to the client to check
+GET http://localhost:5001/api/contacts/64995216826aba8be6a75b95
+we got individual object with an id
+```
+{
+  "_id": "64995216826aba8be6a75b95",
+  "name": "Rohan",
+  "email": "rohan@gmail.com",
+  "phone": "097q09234",
+  "createdAt": "2023-06-26T08:53:42.547Z",
+  "updatedAt": "2023-06-26T08:53:42.547Z",
+  "__v": 0
+}
+```
+```
+const updateContact = asyncHandler(async (req, res) =>{
+    const contact = await Contact.findById(req.params.id);
+    if(!contact){
+        res.send(404)
+        throw new Error("contact not found");
+    }
+    
+    const updatedContact = await Contact.findByIdAndUpdate(
+        //inside if this we will pass id which i want to update
+        req.params.id,
+        //next one which is new body which we want to update
+        req.body,
+        //now we will pass a qurey option 
+        { new: true}
+    );
+    res.status(200).json(updatedContact);
+});      
+```
+```
+const deleteContact = asyncHandler(async (req, res) =>{
+    const contact = await Contact.findById(req.params.id);
+  if (!contact) {
+    res.status(404);
+    throw new Error("Contact not found");
+  }
+    await Contact.remove();
+    res.status(200).json(contact);
+});
+```
+Now we have done the crud operations, read write delete and update. And we also done the connection to the database.All the contacts are stored in the database in the form of documents under the collection.
+### Next thing to intoduce ourself with authentication
+
+
+
+
 
 
