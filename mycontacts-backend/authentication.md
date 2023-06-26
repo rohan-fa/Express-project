@@ -37,3 +37,29 @@ we will do the same for login. Now that we completed the routing and controller.
 ### first we have to create the user model
 let create the schema in the userModel.js 
 
+### now that we created the schema lets go to the userController
+```
+const asyncHandler = require("express-async-handler");
+const User = require("../models/userModel");
+//Register a user
+//@route POST /api/users/register
+//public access so anyone can access the endpoint and then register the user
+
+const registerUser =asyncHandler(async (req, res) => {
+    //whenever user want to register themselves they need to provide username,email,password in the req.body
+    const {username, email, password} = req.body;
+    if (!username || !email || !password){
+        res.status(400);
+        throw new Error("All fields are mandatory")
+    }
+    //before creating a user what we need to check if the user is already registerd or not
+    const userAvailable = await User.findOne({email});
+    if(userAvailable){
+        res.status(400);
+        throw new Error("User already registered")
+    }
+    //we will create a new user for that we are accepting the name, email and password for that we will add hash pass
+    res.json({message: "Register the user"});
+});
+```
+in order to hash the password we need to import library bycrpt. lets import it 
