@@ -50,3 +50,9 @@ res.status(200).json({accessToken});
 
 ```
 Now go to the client side and make a req
+#### userController: let make the access private
+let start with the current user. we need an access token so that only authenticated user can access this route. <br>
+userRoute.js => before we do anything in the userRoutes we need to add a middleware which is going to help us validate the token which a client is sending as a request. <br>
+client=> POST => api/users/current, copy the previous accesstoken in the bearer section.Then press the send. 
+#### middleware folder => validationTokenHandle.js
+
