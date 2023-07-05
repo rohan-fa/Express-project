@@ -10,7 +10,7 @@ const registerUser =asyncHandler(async (req, res) => {
     const {username, email, password} = req.body;
     if (!username || !email || !password){
         res.status(400);
-        throw new Error("All fields are mandatory")
+        throw new Error("All fields are mandatory");
     }
     //before creating a user what we need to check if the user is already registerd or not
     const userAvailable = await User.findOne({email});
@@ -19,17 +19,21 @@ const registerUser =asyncHandler(async (req, res) => {
         throw new Error("User already registered")
     }
     //we will create a new user for that we are accepting the name, email and password for that we will add hash pass
-    //how to use bcrypt? 
-    // Hash password
-    //hash also provide us a promise,  bcrypt.hash(password, 10) in this we need to provide a raw password
-    const hashPassword = await bcrypt.hash(password, 10);
-    console.log("Hasedpassword", hashPassword);
+    const hashedPassword = await bcrypt.hash(password, 10);
+    console.log("Hasedpassword", hashedPassword);
     const user = await User.create({
         username,
         email,
-        password: hashPassword,
+        password: hashedPassword,
     });
-    console.log("user created", user)
+    console.log(`user created, ${user}`);
+    //we dont want whole user details to show along with their password
+    if(user){
+        res.status(201).json({_id: user.id, email: user.email});
+    }else{
+        res.status(400);
+        throw new Error("User data is not valid");
+    }
     res.json({message: "Register the user"});
 });
 

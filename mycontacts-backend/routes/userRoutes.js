@@ -10,6 +10,6 @@ router.post("/register", registerUser );
 router.post("/login", loginUser);
 //we will make another endpoint that will point the current user
 
-router.get("/current", currentUser );
+router.get("/current", currentUser);
 
 module.exports = router;        

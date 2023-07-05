@@ -9,7 +9,8 @@ app.use("/api/users ", require("./routes/userRoutes"));
 Now lets go to the routes, inside the routes make a file called userRoutes
 now in the client side status is 200
 POST see the register
-```http://localhost:5001/api/users/register
+```
+http://localhost:5001/api/users/register
 ```
 similarly see the login or the current user sameway
 ### Next thing create controller for the users
@@ -53,7 +54,7 @@ const registerUser =asyncHandler(async (req, res) => {
         throw new Error("All fields are mandatory")
     }
     //before creating a user what we need to check if the user is already registerd or not
-    const userAvailable = await User.findOne({email});
+    const userAvailable = await User.findOne({email});      //we just placed the email address to check 
     if(userAvailable){
         res.status(400);
         throw new Error("User already registered")
@@ -62,4 +63,25 @@ const registerUser =asyncHandler(async (req, res) => {
     res.json({message: "Register the user"});
 });
 ```
-in order to hash the password we need to import library bycrpt. lets import it 
+in order to hash the password we need to import library bycrpt. lets import it  
+```
+    const hashedPassword = await bcrypt.hash(password, 10);
+    console.log("Hasedpassword", hashedPassword);
+    const user = await User.create({
+        username,
+        email,
+        password: hashedPassword,
+    });
+    console.log("user created", user)
+    //we dont want whole user details to show along with their password
+    if(user){
+        res.status(201).json({_id: user.id, email: user.email})
+    }else{
+        res.status(400);
+        throw new Error("User data is not valid");
+    }
+    res.json({message: "Register the user"});
+
+```
+client side passed. now if we go to mongoDB => collection => users => Now that we created the registered users. Now will create the endpoint for login. when ever a user is login we get an access token. and for that we are going to work for JWT json web token. 
+ 
