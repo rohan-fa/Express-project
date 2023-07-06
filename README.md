@@ -1,5 +1,5 @@
 # Express-project
-This is express & mongodb rest api project.This project involves Node.js, Express, MongoDB, and JWT. It's an express and MongoDB 
+This is Express & Mongodb RESTful API project. This project involves Node.js, Express, MongoDB, and JWT. It's an express and MongoDB 
 rest API that covers all the CRUD API of the contacts. With this API, you can manage your contacts based on the user.<br>
 
 We have developed APIs for creating, reading, updating, and deleting contacts. By utilizing these APIs, we can effectively manage contacts for individual users.
