@@ -7,5 +7,3 @@ We have developed APIs for creating, reading, updating, and deleting contacts. B
 - login users
 - Once a user is logged in, they have the ability to create, update, delete, and view all contacts they have created. This functionality is available to multiple users, allowing for management of all contacts.
 
-![1](./img/1.png)<br><br>
-![2](./img/2.png)
