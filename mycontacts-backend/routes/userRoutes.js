@@ -1,5 +1,6 @@
 const express = require("express");
 const { registerUser, loginUser, currentUser } = require("../controllers/userController");
+const validateToken = require("../middleware/validationTokenHandler");
 
 
 const router = express.Router();
@@ -10,6 +11,6 @@ router.post("/register", registerUser );
 router.post("/login", loginUser);
 //we will make another endpoint that will point the current user
 
-router.get("/current", currentUser);
+router.get("/current", validateToken, currentUser);
 
 module.exports = router;        
