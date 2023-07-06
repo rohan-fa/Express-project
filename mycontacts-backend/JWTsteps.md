@@ -106,3 +106,34 @@ req.user = decoded.user
 so the user information 
 #### next step
 next thing is to protect all our contact Routes. olny a logged in user can create delete update and read the contexts which they have created for themselves. Whenever you create a new contact we need to associate that contact we the user id creating it.
+#### contactModel: 
+add a new property that is user_id.this userId for the user who is creating contact.<br>
+this id is created actually in mongoDb. and that where we have ObjectId.
+```
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:"User",
+    },
+
+```
+now that its done we need to go contactController and make all the routes as private. 
+#### go to the contactRoutes and import validateToken
+```
+router.use(validateToken);
+
+```
+now in contactController.lets make use the userId and then we do the CRUD operation. 
+- first need to find my contacts. So i need to find all the contacts with the user who is logged in. 
+- So we need to fetch all the contacts of a logged in user
+for that we will have 
+```
+(user_id: req.user.id)
+
+```
+contactController<br>
+this user_id is what we just created in contactModel Schema
+```
+    const contacts =await Contact.find({user_id: req.user.id});                 
+
+```
