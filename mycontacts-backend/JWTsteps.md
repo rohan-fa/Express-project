@@ -137,3 +137,9 @@ this user_id is what we just created in contactModel Schema
     const contacts =await Contact.find({user_id: req.user.id});                 
 
 ```
+we modified the CRUD for baised in user_id. 
+
+we have created all the CRUD API of the contacts.so we can make use of contacts API and then we can manage contact based on the user
+- we have a register user
+- login user
+- And then once a user is logged in he can create update delete and read all the contacts which he created and similarly we can have multiple users and can manage their all contacts

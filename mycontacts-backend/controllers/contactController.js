@@ -65,7 +65,7 @@ const deleteContact = asyncHandler(async (req, res) =>{
     res.status(403);
     throw new Error("user should uopdate the wrong userId");
   }
-    await Contact.remove();
+    await Contact.deleteContact({_id: req.params.id});
     res.status(200).json(contact);
 });
 
