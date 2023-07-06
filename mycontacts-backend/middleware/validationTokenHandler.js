@@ -12,7 +12,7 @@ const validateToken = asyncHandler(async (req, res, next) => {
         throw new Error("User is not authorized");
       }
       req.user = decoded.user;
-      next();
+      next();   //since we are using middleware whenever we have a req, this middleware is going to decode the token and then it will add the req.user property 
     });
 
     if (!token) {
